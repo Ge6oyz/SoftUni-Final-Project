@@ -1,0 +1,50 @@
+{{ user.first_name }}
+{{ user.last_name }}
+<div>
+    {% if user_extended.image %}
+    <p>
+    <img src="{{user_extended.image.url}}" width="150" height="300">
+    </p>
+    {% else %}
+    <p>
+    <img src="https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png" width="150" height="300">
+    </p>
+    {% endif %}
+</div>
+<div>
+<p>
+    <label>Covid Positive:</label>
+    {{ user_extended.covid_positive }}
+</p>
+<p>
+    <label>Contatcted a Covid Positive:</label>
+    {{ user_extended.covid_contact }}
+</p>
+</div >
+<div class="topnav">
+<a href="{% url 'friend_search' %}">Look for Friends</a>
+<a href="{% url 'sign_out' %}">Sign Out</a>
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'edit' %}">Edit</a>
+</div>
+<div>
+    {% if friends %}
+        {% for friend in friends %}
+            <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+<div>
+    {% if alerts %}
+        <p>Some of your friends have covid</p>
+        <p>Have you been in contact with any of them?</p>
+        <form method="POST" action="">
+                {% csrf_token %}
+        {% for alert in alerts %}
+                <input type="checkbox" id="friend" name="check">
+                <label for="friend"> {{alert}} </label><br>
+        {% endfor %}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+</div>

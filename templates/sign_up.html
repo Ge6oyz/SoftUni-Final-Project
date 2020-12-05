@@ -1,0 +1,11 @@
+<form method="POST">
+        {% csrf_token %}
+        {% for item in form %}
+            {{ item.label }}
+            {{ item }}
+        {% endfor %}
+        {% if errors %}
+            {{ errors }}
+        {% endif %}
+        <input type="submit" value="Sign up">
+</form>
