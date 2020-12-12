@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="items-container">
+    {% if friends %}
+        {% for friend in friends %}
+                <p>{{ friend.first_name}} {{ friend.last_name }} </p>
+                {% if friend.image %}
+                <img src="{% static friend.image %}" width="250" height="200">
+                {% else %}
+                <p>
+                <img src="https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png" width="150" height="300">
+                </p>
+                {% endif %}
+                {% if friend.covid_positive %}
+                    <p>Covid Positive</p>
+                {% endif %}
+                {% if friend.covid_contact %}
+                <p>In contact with Covid Positive</p>
+                {% endif %}
+        {% endfor %}
+
+    {% else %}
+        You have no friends
+    {% endif %}
+</div>
+{% endblock %}

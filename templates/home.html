@@ -1,43 +1,53 @@
-{{ user.first_name }}
-{{ user.last_name }}
-<div>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="items-container">
+    <h3>
+    {{ user.first_name }}
+    {{ user.last_name }}
+    </h3>
     {% if user_extended.image %}
     <p>
-    <img src="{{user_extended.image.url}}" width="150" height="300">
+    <img src="{{user_extended.image.url}}" width="250" height="350">
     </p>
     {% else %}
     <p>
-    <img src="https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png" width="150" height="300">
+    <img src="https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png" width="250" height="350">
     </p>
     {% endif %}
 </div>
-<div>
+<div class="items-container">
 <p>
+    <h4>
     <label>Covid Positive:</label>
-    {{ user_extended.covid_positive }}
+    {% if user_extended.covid_positive %}
+        Yes
+    {% else %}
+        No
+    {% endif %}
+    </h4>
 </p>
 <p>
-    <label>Contatcted a Covid Positive:</label>
-    {{ user_extended.covid_contact }}
+    <h4>
+    <label>Has been in contact with a Covid Positive:</label>
+    {% if user_extended.covid_contact %}
+        Yes
+    {% else %}
+        No
+    {% endif %}
+    </h4>
 </p>
 </div >
-<div class="topnav">
-<a href="{% url 'friend_search' %}">Look for Friends</a>
-<a href="{% url 'sign_out' %}">Sign Out</a>
-<a href="{% url 'home' %}">Home</a>
-<a href="{% url 'edit' %}">Edit</a>
-</div>
-<div>
-    {% if friends %}
-        {% for friend in friends %}
-            <p>{{ friend.first_name }} {{ friend.last_name }}</p>
-        {% endfor %}
-    {% endif %}
-</div>
-<div>
+
+<div class="items-container">
     {% if alerts %}
+    <h3>
         <p>Some of your friends have covid</p>
         <p>Have you been in contact with any of them?</p>
+    </h3>
         <form method="POST" action="">
                 {% csrf_token %}
         {% for alert in alerts %}
@@ -48,3 +58,4 @@
         </form>
     {% endif %}
 </div>
+{% endblock %}

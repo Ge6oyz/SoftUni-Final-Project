@@ -1,11 +1,28 @@
-<form method="POST">
-        {% csrf_token %}
-        {% for item in form %}
-            {{ item.label }}
-            {{ item }}
-        {% endfor %}
-        {% if errors %}
-            {{ errors }}
-        {% endif %}
-        <input type="submit" value="Sign up">
-</form>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <title>Covid Tracker</title>
+</head>
+
+
+<div class="items-container">
+    <form method="POST">
+
+            {% csrf_token %}
+            {% for item in form %}
+            <p>{{ item.label }}</p>
+            <p>{{ item }}</p>
+            {% endfor %}
+            {% if errors %}
+                {{ errors }}
+            {% endif %}
+            <input type="submit" value="Sign up">
+
+    </form>
+    Already have an account?
+    <a class="button" href="{% url 'sign_in' %}">Sign in</a>
+
+</div>
