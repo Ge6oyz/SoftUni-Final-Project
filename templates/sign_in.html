@@ -1,4 +1,14 @@
-<div>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <title>Covid Tracker</title>
+</head>
+
+
+<div class="items-container">
     <form method="POST" action="">
         {% csrf_token %}
         <label>Username:</label>
@@ -6,11 +16,14 @@
         <label>Password:</label>
         <input type="password" id="password" name="password"><br><br>
         <input type="submit" value="Sign in">
-        <a href="{% url 'sign_up' %}">Sign up</a>
+
+
             {% for message in messages %}
                 <p>
                     {{ message }}
                 </p>
             {% endfor %}
     </form>
+    Don't have an account?
+    <a class="button" href="{% url 'sign_up' %}">Sign up</a>
 </div>

@@ -62,6 +62,7 @@ def friend_search(request):
     return render(request, 'search.html')
 
 
+@login_required(login_url='sign_in')
 def edit_profile(request):
     user = UserModel.objects.get(user=request.user)
     if request.method == 'GET':
@@ -75,3 +76,10 @@ def edit_profile(request):
         return render(request, 'edit.html', {'form': form})
 
 
+@login_required(login_url='sign_in')
+def friends_list(request):
+    user = UserModel.objects.get(user=request.user)
+    friends = user.friends.all()
+
+    context = {'friends': friends}
+    return render(request, 'friends.html', context)

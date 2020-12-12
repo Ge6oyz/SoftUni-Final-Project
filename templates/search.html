@@ -1,14 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="items-container">
 <form method="POST" action="">
     {% csrf_token %}
     <label>Type in Friend's name:</label>
     <input type="text" name="name" >
     <input type="submit" value="Search">
 </form>
+</div>
 {% if users %}
     {% for user in users %}
-    <div>
+    <div class="items-container">
     <p>{{ user.first_name}} {{ user.last_name }} </p>
-    <img src="{{user.image_url}}" width="250" height="200">
+    {% if user.image %}
+    <img src="{% static user.image %}" width="250" height="200">
+    {% else %}
+    <p>
+    <img src="https://www.kindpng.com/picc/m/76-763217_anonymous-user-png-transparent-png.png" width="150" height="300">
+    </p>
+    {% endif %}
         <form method="POST" action="">
             {% csrf_token %}
             <input type="hidden" name="user" value="{{user.pk}}">
@@ -18,3 +31,4 @@
     {% endfor %}
 {% endif %}
 
+{% endblock %}

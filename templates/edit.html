@@ -1,5 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="items-container">
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    {{ form }}
+    <p>{{ form.first_name.label }}:</p>
+    <p>{{ form.first_name }}</p>
+    <p>{{ form.last_name.label }}:</p>
+    <p>{{ form.last_name }}</p>
+    <p>{{ form.image.label }}:</p>
+    <p>{{ form.image }}</p>
+    <p>{{ form.covid_positive.label}}:
+        {{ form.covid_positive}}</p>
+    <p>{{ form.covid_contact.label}}:
+        {{ form.covid_contact}}</p>
     <input type="submit" value="Edit">
 </form>
+</div>
+
+{% endblock %}
